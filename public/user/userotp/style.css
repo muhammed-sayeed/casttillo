@@ -1,0 +1,36 @@
+body {
+  background:url('https://cdn.dribbble.com/users/126947/screenshots/1648943/media/1f7079979a4abab695879daf2299904d.png?compress=1&resize=768x576&vertical=top');
+ background-repeat: no-repeat;
+ background-position:right top;
+}
+.text-color {
+  color: #145a32;
+}
+.card {
+  width: 350px;
+  padding: 20px;
+  border-radius: 20px;
+  background: #d4efdf;
+  border: none;
+  position: relative;
+}
+.container {
+  height: 100vh;
+}
+.mobile-text {
+  color: #cd5c5c;
+  font-size: 15px;
+}
+.form-control {
+  margin-right: 12px;
+}
+.form-control:focus {
+  color: #495057;
+  background-color: #d4efdf;
+  border-color: #c0392b;
+  outline: 0;
+  box-shadow: none;
+}
+.cursor {
+  cursor: pointer;
+}
