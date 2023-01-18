@@ -675,11 +675,13 @@ const postCheck = async (req, res) => {
   const ordercart = await cart.findOne({owner:userId})
 
    const Address = await address.findOne({user:userId})
+
+   console.log("ASDFGHGFDDDDDDDDDDDDDD",Address)
   
   const DeliveryAddress = Address.address.find(
     (el) => el._id.toString() == addressid
   );
- 
+ console.log(DeliveryAddress._id,"<><><><><<<<><>");
   if (ordertype === "cod") {
  
     const neworder = new order({
@@ -687,11 +689,11 @@ const postCheck = async (req, res) => {
       userId: ordercart.owner,
       products: ordercart.items,
       subtotal: Amount,
-      address: DeliveryAddress,
+      address: DeliveryAddress._id,
       paymentmethod: ordertype,
       orderstatus: "Conformed",
     });
-    await neworder.save().then((result)=>{
+    neworder.save().then((result)=>{
      
       ordercart.items = [];
     ordercart.cartTotal = 0;
@@ -709,7 +711,7 @@ const postCheck = async (req, res) => {
       userId: ordercart.owner,
       products: ordercart.items,
       subtotal: Amount,
-      address: DeliveryAddress,
+      address: DeliveryAddress._id,
       paymentmethod: ordertype,
       orderstatus: "Conformed",
     });
@@ -816,21 +818,34 @@ const orderList = async (req, res) => {
 
 const detailPage = async (req, res) => {
   const id = req.query.id;
+  console.log(id);
   const uSer = req.User;
- 
+
+  const orders = await order.find();
 
   const orderView = await order
     .findOne({ _id: id })
     .populate("products.product");
-  
+
+    console.log(orderView,'asssssssssssssssssssssssssssssssssssssssss');
+  console.log(orders);
   const addessId = orderView.address;
   const count = req.count;
 
+  console.log(addessId,"<><><>>>>>>>>>>>>>>>>>>>>>>><<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+
+
+  
   const orderAddress = await address.findOne({ user: orderView.userId });
   const index = await orderAddress.address.findIndex(
     (obj) => obj._id == addessId
   );
   const finalAddress = orderAddress.address[index];
+
+// const {name,phone,state,city,pin}=addessId;
+// console.log("jhhhhhhhhhhhhhhhhhhhhhhhhh",name)
+ console.log(finalAddress,"{{{{{{{{{{{}{}{}}{}{}}}}}}}}}}}}}")
+
 
  
 

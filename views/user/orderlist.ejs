@@ -5,7 +5,6 @@
 
 
 
-
 <%- include('partials/header.ejs')%>
 
 
@@ -20,8 +19,7 @@
                     <tr>
                         <th scope="col">#ORDERS</th>
                        
-                        <th scope="col">NAME</th>
-                        <th scope="col">ADDRESS</th>
+                       
                         
                         <th scope="col">STATUS</th>
                         <th scope="col">TOTAL</th>
@@ -41,8 +39,7 @@
 
                 <tr>
                     <th scope="row"><%= i+1 %> </th>
-                   <td><%= a.add[i].name %> </td>
-                   <td><%=a.add[i].address %></td>
+                  
                
                         <td><%= element.orderstatus%></td>
      
@@ -84,75 +81,83 @@
 </div>
 <%- include('partials/footer.ejs') %> 
 
-<div class="modal fade" id="products" tabindex="-1" aria-labelledby="aria-labelledby" aria-hidden="true">
+<script src="/user/usersignup/vendor/datepicker/moment.min.js"></script>
+<script src="/user/usersignup/vendor/datepicker/daterangepicker.js"></script>
+<script src="js/global.js"></script>
+
+<link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
+<!-- <div class="modal fade" id="products" tabindex="-1" aria-labelledby="aria-labelledby" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-conten ">
         <div class="modal-header">
           <h5 class="modal-title" id="model-title">Products</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body " >
+        <div class="modal-body " > -->
 <!---------------------------------------------------------------------------->
-        <div id="productz">
+        <!-- <div id="productz">
 
-        </div>
+        </div> -->
 <!----------------------------------------------------------------------------------> 
-        </div>
+        <!-- </div>
         <div class="modal-footer"> 
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
 
 <script>
-     function getpro(id){
+
+//      function getpro(id){
        
-              document.getElementById('productz').innerHTML='fetching data...............'
-      $.ajax({
-        url:'/admin/orderproduct',
-        method:'post',
-        data:{orderId:id},
-        success:((responce)=>{
+//               document.getElementById('productz').innerHTML='fetching data...............'
+//       $.ajax({
+//         url:'/admin/orderproduct',
+//         method:'post',
+//         data:{orderId:id},
+//         success:((responce)=>{
            
-            document.getElementById('productz').innerHTML=''
-            responce.products.forEach((val,i)=>{
+//             document.getElementById('productz').innerHTML=''
+//             responce.products.forEach((val,i)=>{
                 
-                $('#productz').append(`
-                    <table class="table table-hover table-dark">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Price</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Size</th>
-      <th scope="col">Description</th>
-      <th scope="col">Images</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">${i+1}</th>
-      <td>${val.product.name}</td>
-      <td>${val.product.price}</td>
-      <td>${val.quantity}</td>
-      <td>${val.product.size}</td>
-      <td>${val.product.description}</td>
-      <td><img src="${val.product.image[0]}" width='50px' height='auto'/></td>
-    </tr>
-  </tbody>
-</table>`
-                )
-            }
-            )
+//                 $('#productz').append(`
+//                     <table class="table table-hover table-dark">
+//   <thead>
+//     <tr>
+//       <th scope="col">#</th>
+//       <th scope="col">Title</th>
+//       <th scope="col">Price</th>
+//       <th scope="col">Quantity</th>
+//       <th scope="col">Size</th>
+//       <th scope="col">Description</th>
+//       <th scope="col">Images</th>
+//     </tr>
+//   </thead>
+//   <tbody>
+//     <tr>
+//       <th scope="row">${i+1}</th>
+//       <td>${val.product.name}</td>
+//       <td>${val.product.price}</td>
+//       <td>${val.quantity}</td>
+//       <td>${val.product.size}</td>
+//       <td>${val.product.description}</td>
+//       <td><img src="${val.product.image[0]}" width='50px' height='auto'/></td>
+//     </tr>
+//   </tbody>
+// </table>`
+//                 )
+//             }
+//             )
             
 
-        })
+//         })
 
-      })
-    }
+//       })
+//     }
 
 
     function status(e,od){
@@ -177,3 +182,4 @@ setTimeout(()=>location.reload(),1000)
         })
     }
 </script>
+
