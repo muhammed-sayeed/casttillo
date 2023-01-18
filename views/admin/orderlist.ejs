@@ -1,0 +1,161 @@
+<%- include('partials/navbar.ejs') -%>
+<%- include('partials/sidebar.ejs') -%>
+
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-xl-2"></div>
+<div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Product List</h6>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">userName</th>
+                    <th scope="col">Address</th>
+                    <!-- <th scope="col">Address</th> -->
+                    <th scope="col">Status</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Method</th>
+                    <th scope="col">Date</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <% orderlist.forEach((element,i)=>{ %> 
+                     <tr>
+                    <th scope="row"><%= i+1 %> </th>
+                   <td><%= element.userId.name %> </td>
+                   <td><%= Alladdress[i].address %></td>
+                   <td>
+                    <% if(element.orderstatus=="cancelled"){ %>
+                          <p><span style="color: red;">Cancelled</span></p>
+              <%      } else if(element.orderstatus=="delivered"){ %>
+                   <p><span style="color: green;">Delivered</span></p>
+              
+              
+              
+        <%      }else{ %>
+          <select name="" id="status" onchange="status(this,'<%= element._id %>')">
+            <option value="<%= element.orderstatus %>selected "><%= element.orderstatus %> </option>
+         <option value="conformed">Conformed</option>
+         <option value="cancelled">Cancelled</option>
+         <option value="delivered">Deliverd</option>
+         <option value="shipped">Shipped</option>
+         <option value="pending">Pending</option>
+         <option value="placed">Placed</option>
+        </select>
+
+       <%  } %> 
+                    
+                  </td>
+                    <td><%= element.subtotal %> </td>
+                    <td><%= element.paymentmethod %> </td>
+                    <td><%= element.date.toLocaleString() %> </td>
+                  
+                      
+                      <td>
+                        <button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal"
+                        data-bs-target="#product" onclick="getpro('<%= element._id %>')" >Details</button>
+                      </td>
+                   
+                </tr>
+             <%  })  %>
+               
+              
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="product" tabindex="-1" aria-labelledby="aria-labelledby" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="model-title">Products</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+<!---------------------------------------------------------------------------->
+        <div id="product">
+
+        </div>
+<!----------------------------------------------------------------------------------> 
+        </div>
+        <div class="modal-footer"> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    function status(e,od){
+        $.ajax({
+            url:`/admin/changeStatus?s=${e.value}&id=${od}`,
+            method:'get',
+            success:((responce)=>{
+              if(responce.status){
+                Swal.fire({
+  position: 'top-end',
+  icon: 'success',
+  title: 'Your work has been saved',
+  showConfirmButton: false,
+  timer: 1500
+})
+setTimeout(()=>location.reload(),1000)
+              }
+            })
+
+        })
+    }
+
+    function getpro(id){
+      document.getElementById('product').innerHTML='fetching data...............'
+      $.ajax({
+        url:'/admin/orderproduct',
+        method:'post',
+        data:{orderId:id},
+        success:((responce)=>{
+            document.getElementById('product').innerHTML=''
+            responce.products.forEach((val,i)=>{
+                $('#product').append(`
+                    <table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Size</th>
+      <th scope="col">Description</th>
+      <th scope="col">Images</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">${i+1}</th>
+      <td>${val.product.name}</td>
+      <td>${val.product.price}</td>
+      <td>${val.quantity}</td>
+      <td>${val.product.size}</td>
+      <td>${val.product.description}</td>
+      <td><img src="${val.product.image[0]}" width='50px' height='auto'/></td>
+    </tr>
+  </tbody>
+</table>`
+                )
+            }
+            )
+            
+
+        })
+
+      })
+    }
+</script>
+

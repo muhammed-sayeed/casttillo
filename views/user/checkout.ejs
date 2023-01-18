@@ -1,0 +1,344 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+  integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+  integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+
+
+<%- include('partials/header.ejs') -%>
+  <section class="checkout_area section_gap">
+    <div class="container">
+      <div class="returning_customer">
+
+
+
+        
+
+
+              <form style="margin-top: 50px;">
+              
+                <div class="billing_details">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h3>Billing Details</h3>
+                      <% if(addresses==0 ){ %>
+                        <div class="alert alert-success" role="alert">
+                          Please Add address!
+                        </div>
+                        <% }else{ %>
+                          <!-- collaps--------------------------------------------------------------- -->
+                          <p>
+                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+                              aria-expanded="false" aria-controls="collapseExample">
+                              Addresses
+                            </a>
+                            <button class="btn btn-outline-primary ms-1" data-bs-toggle="modal"
+                              data-bs-target="#hoi">Add Address</button>
+
+                          </p>
+                          <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                              <% for(let i=0;i<addresses[0].address.length;i++){ %>
+                                <div class="col-lg-6 border">
+
+                                  <input type="radio" required name="address" id="address"
+                                    value="<%= addresses[0].address[i]._id %>">
+                                  <h4>
+                                    <%= addresses[0].address[i].name %>
+                                  </h4>
+                                  <p>
+                                    <%= addresses[0].address[i].address %>
+                                      <%= addresses[0].address[i].city %>
+                                        <%= addresses[0].address[i].state %>
+                                          <%= addresses[0].address[i].phone %>
+                                  </p>
+
+
+
+                                </div>
+
+                                <% } %>
+                            </div>
+                          </div>
+                          <!--collaps end---------------------------------------------------  -->
+
+
+                          <% } %>
+                            <div style="height: 100px; width: 100px;">
+
+                            </div>
+                            <!-- <% if(addresses==0){ %>
+                                        <input class="primary-btn" value="Proceed" type="submit" hidden>
+                                <%    }else{ %>
+                                    <input class="primary-btn" value="Proceed" type="submit" >
+                          <%      } %> 
+                                        -->
+                    </div>
+
+
+                    <div class="col-lg-6">
+                      <div class="order_box">
+                        <h2>Your Order</h2>
+                        <ul class="list">
+                          <li><a href="#">Product <span></span></a></li>
+
+                          <% for(let i=0;i<usercart.items.length;i++){ %>
+                            <li><a href="#">
+                                <%= usercart.items[i].product.name %> <span class="middle">x <%=
+                                      usercart.items[i].quantity %> </span> <span class="last">
+                                    <%= usercart.items[i].totalprice %>
+                                  </span>
+                              </a></li>
+                            <% } %>
+                        </ul>
+                        <ul class="list list_2">
+                          <li><a href="#">Total <span>
+                                <%= total %>
+                              </span></a></li>
+                          <li><a href="#">Shipping <span>0</span></a></li>
+
+                          <li ><a >Subtotal <span id="total"><%= total %></span></a></li>
+                        
+                          
+                        </ul>
+
+                        <div class="payment_item">
+                          <div class="radion_btn">
+                            <input type="radio" id="f-option5" required name="selector" value="cod">
+                            <label for="f-option5">COD</label>
+                            <div class="check"></div>
+                          </div>
+                          <!-- <div class="payment_item">
+                            <div class="radion_btn">
+                              <input type="radio" id="f-option7" name="selector" value="razorpay">
+                              <label for="f-option7">Razor pay</label>
+                              <div class="check"></div>
+                            </div>
+
+                          </div> -->
+                          <div class="payment_item active">
+                            <div class="radion_btn">
+                              <input type="radio" id="f-option6" name="selector" value="paypal">
+                              <label for="f-option6">Paypal </label>
+                              <img src="img/product/card.jpg" alt="">
+                              <div class="check"></div>
+                            </div>
+
+                          </div>
+                          <div class="creat_account">
+                            
+                          </div>
+                          <% if(addresses==0){ %>
+                            <input class="primary-btn" value="Proceed" type="submit" hidden>
+                            <% }else{ %>
+                              <input class="primary-btn" value="Proceed" onclick="payment()" >
+                              <% } %>
+                        </div>
+                        <div id="paypal-button-container"></div>
+                      </div>
+                    </div>
+
+              </form>
+
+
+
+              <!-- modal starts -->
+              <div class="modal fade" id="hoi" tabindex="-1" aria-labelledby="aria-labelledby" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="model-title">Add Address</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <!---------------------------------------------------------------------------->
+                      <form class="row g-3 needs-validation" novalidate action="/addcheckaddress" method="post">
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Name</label>
+                          <input type="text" class="form-control" name="name" id="validationCustom01" value="" required>
+                          <div class="valid-feedback">
+                            Looks good!
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Phone</label>
+                          <input type="tel" class="form-control" name="phone" id="validationCustom01" value="" required>
+                          <div class="valid-feedback">
+                            Looks good!
+                          </div>
+                        </div>
+
+                        <div class="col-md-12">
+                          <p class="mb-0">Address</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <textarea name="address" id="" cols="30" rows="5"></textarea>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Town</label>
+                          <input type="text" class="form-control" id="validationCustom03" required name="city">
+                          <div class="invalid-feedback">
+                            Please provide a valid city.
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">State</label>
+                          <input type="text" class="form-control" id="validationCustom03" required name="state">
+                          <div class="invalid-feedback">
+                            Please provide a valid city.
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <label for="validationCustom05" class="form-label">Pin</label>
+                          <input type="number" class="form-control" id="validationCustom05" required name="pin">
+                          <div class="invalid-feedback">
+                            Please provide a valid zip.
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+
+                      </form>
+                      <!---------------------------------------------------------------------------------->
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </div>
+    </div>
+    <!-- modal ends -->
+
+  </section>
+
+
+
+
+
+
+
+  <script src="https://www.paypal.com/sdk/js?client-id=<%= paypalClindId %>" data-namespace="paypal_sdk"></script>
+
+  <script>
+     
+  </script>
+
+<script>
+  
+  function payment(){   
+    const index = $('input[type="radio"][name="address"]:checked').val();
+    const paymode =$('input[type="radio"][name="selector"]:checked').val();
+    const total = document.getElementById('total').innerHTML
+ 
+
+    axios({
+      method:"post",
+      url:"/success",
+      data:{
+        index,
+        paymode,
+        total
+      }
+    
+    }).then((result)=>{
+     
+      if(result.data.cod){
+        Swal.fire({
+                            title: 'Order Placed Successfully',
+                            icon: "success",
+                            showDenyButton: false,
+                            confirmButtonText: "OK",
+                            toast: true,
+                        }).then((result) => {
+                           
+                            if (result.isConfirmed) {
+                                location.href = "/successpage"
+                            }
+                        })
+      }else if(result.data.Razorpay){
+        userOrderData:result.data.userOrderData
+        amount:result.data.walletBalance
+
+        paypal_sdk.Buttons({
+                            createOrder: function () {
+                                return fetch("/create-order", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({
+                                        items: [
+                                            {
+                                                id: 1,
+                                                amount:result.data.walletBalance,
+                                            },
+                                            { id: 2, amount: result.data.walletBalance },
+                                        ],
+                                    }),
+                                }).then(res => {
+                                   
+                                    if (res.ok) return res.json()
+                                   
+                                    return res.json().then(json => Promise.reject(json))
+                                }).then(({ id }) => {
+                                    
+                                    return id
+                                }).catch(e => {
+                                   
+                                })
+                            },
+                            onApprove: function (data, actions) {
+                              
+                                return actions.order.capture().then(function (details) {
+                                    verifyPayment(result)
+                                    alert("transaction complited")
+                                })
+                            }
+                        }).render('#paypal-button-container');
+      }
+    })
+    
+
+   
+  }
+
+  function verifyPayment(verifyData) {
+           
+           
+            axios({
+              method:"post",
+              url: "/verifyPayment",
+              data:{
+                verifyData,
+              },
+          
+            }).then((result)=>{
+              
+                   
+                    if (result.data.status) {
+                        Swal.fire({
+                            title: 'Order Placed Successfully',
+                            icon: "success",
+                            showDenyButton: false,
+                            confirmButtonText: " OK",
+                            toast: true,
+                        }).then((result) => {
+                           
+                            if (result.isConfirmed) {
+                                location.href = "/successpage"
+                            }
+                        })
+                    }
+                
+            })
+                
+               
+              }
+</script>
+<%- include('partials/footer.ejs') -%>

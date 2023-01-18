@@ -1,0 +1,47 @@
+<%- include('partials/navbar.ejs') -%>
+<%- include('partials/sidebar.ejs') -%>
+
+<form action="/admin/updatecategory/<%= onUser._id %> " method="post" enctype="multipart/form-data">
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-xl-2"></div>
+    <div class="col-sm-12 col-xl-6">
+        <div class="bg-light rounded h-100 p-4">
+            <h6 class="mb-4">Edit Category</h6>
+            <div class="form-floating mb-3">
+                <input type="String" class="form-control" id="floatingInput"
+                    placeholder="" name="categoryname" value="<%= onUser.name %>">
+                 <label for="floatingInput">Category name</label> 
+            </div>
+            <!-- <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword"
+                    placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect"
+                    aria-label="Floating label select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label for="floatingSelect">Works with selects</label>
+            </div> -->
+            <div class="form-floating mb-3">
+                <img src="<%= onUser.image%>"  alt="">
+                <label for="image" ></label>
+                <input
+                 type="file" 
+                 name="image"
+                 id ="image"
+                 >
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" style="height: 150px; " value="<%= onUser.description%> " name="description">
+                <label for="floatingTextarea">Description</label>
+            </div>
+            <div><button type="submit" style="margin-top: 20px;" class="btn btn-success">Submit</button></div>
+        </div>
+    </div>
+    </form>

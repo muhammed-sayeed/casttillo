@@ -1,0 +1,53 @@
+
+<%- include('partials/navbar.ejs') -%>
+<%- include('partials/sidebar.ejs') -%>
+
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-xl-2"></div>
+<div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Hoverable Table</h6>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+
+                    <th scope="col">#</th>
+                 
+                    <th scope="col">Title</th>
+                    <th scope="col">url</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">image</th>
+                   
+                   
+                </tr>
+            </thead>
+            <tbody>
+              <% banners.forEach((element)=>{ %>
+                <tr>
+                    <th scope="row"> </th>
+                    <td><%= element.title %> </td>
+                    <td><%= element.url %>  </td>
+                    <td><%= element.description %>  </td>
+                   
+                     <td>
+                      
+                            <img src="<%= element.image %> " width="100px" height="auto" alt=""></td>
+                    
+                      <td>
+                        <a href="/admin/deletbanner/<%= element._id %>" onclick="return confirm('Are you sure')" class="btn btn-danger">Delete</a>
+                      </td>
+                     
+                   
+                </tr>
+       <%       }) %> 
+                   
+           
+               
+              
+            </tbody>
+        </table>
+    </div>
+</div>
+<a href="/admin/addbanner" class="btn btn-primery">Add Banner</a>

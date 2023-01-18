@@ -1,0 +1,267 @@
+<!-- 
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
+  rel="stylesheet"
+/>
+
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
+></script> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+<%- include('partials/header.ejs') %> 
+
+   <section style="background-color: #eee;">
+    <div class="container py-5">
+     
+        <div class="col">
+          <div style="height: 130px;"></div>
+          <!-- <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+           <div style="height: 70px; width: 100px; " >
+            <a href="/"><img src="/user/img/loginlogo.png" alt="" style="height: 110px; width: 110px; "></a>
+          </div>
+          </nav>  -->
+       
+      </div>
+
+      <!-- <div class="row">
+        <div style="height: 100px;">
+        </div>
+      </div> -->
+  
+      <div class="row" >
+        <div class="col-lg-3">
+          <div class="card mb-4">
+         
+            <div class="card-body text-center">
+              <img src="/user/img/sayeed.png" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+               
+              <h5 class="my-3"> <%= userdetails.name %>  </h5>
+              <p class="text-muted mb-1"><%= userdetails.phone %>  </p>
+              <p class="text-muted mb-4"><%= userdetails.email %> </p>
+              <div class="d-flex justify-content-center mb-2">
+                <a href="/orders" class="btn btn-primary ms-1">Orders</a>
+               
+                
+                <a href="/wishlistpage" class="btn btn-primary ms-1">Wishlist</a>
+                
+              </div>
+              <div>
+                <button type="button" class="btn btn-primary ms-1" data-bs-toggle="modal"
+                data-bs-target="#hi" >Add Address</button>
+                <a href="/logout" class="btn btn-danger">Logout</a>
+                <!-- <a href="/addaddres" class="btn btn-primary">Add Address</a> -->
+              
+              </div>
+            </div>
+          </div>
+        </div> 
+  
+        <!-- ----------collaps ------------------>
+
+     
+
+
+        <% if (useraddres == null || findaddress.length == 0 ) { %>
+          <div class="alert alert-danger" role="alert" style="width: 250px; height: 60px;">
+            Please Add Address!
+          </div>
+          <% }else{ %>
+            <!-- collaps----------------- -->
+
+            <!-- ----------------------- -->
+            <% for(let i =0;i<findaddress.length;i++){ %>
+             <div class="col-lg-3 ml-2" style="box-sizing: border-box; border: 1px solid; height: 405px;">
+              <div style="height: 330px;">
+                 <h4 style="margin-top: 20px;"><%= findaddress[i].name %> </h4>
+                
+                 <p style="margin-top: 15px;"><%= findaddress[i].address %> </p>
+                 <p><%= findaddress[i].city %> </p>
+                 <p><%= findaddress[i].state %> </p>
+                 <p><%= findaddress[i].phone %> </p>
+                </div>
+                <button class="btn btn-warning" onclick="deleteaddress('<%- findaddress[i]._id %>')" style="margin-left: 80px;">Delete</button>
+                <button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal"
+                data-bs-target="#Edit<%= findaddress[i].id %>"  >Update</button>
+                
+               </div>
+  
+  
+                <!--Edit modal-->
+      <div class="modal fade" id="Edit<%=findaddress[i].id %>" tabindex="-1" aria-labelledby="aria-labelledby" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="model-title">Update</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+   <!---------------------------------------------------------------------------->
+              <form class="row g-3 needs-validation" novalidate action="/editaddress/<%=findaddress[i]._id%> " method="post">
+                <div class="col-md-6">
+                  <label for="validationCustom01" class="form-label">Name</label>
+                  <input type="text" class="form-control" name="name" id="validationCustom01" value="<%= findaddress[i].name %> " required>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="validationCustom01" class="form-label">Phone</label>
+                  <input type="tel" class="form-control" name="phone" id="validationCustom01" value="<%= findaddress[i].phone %> " required>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+               
+                <div class="col-md-12">
+                
+              </div>
+              <label for="validationCustom03" class="form-label">Address</label>
+                  <input type="text" class="form-control" id="validationCustom03" value="<%= findaddress[i].address %> " required name="addres">
+             
+                <div class="col-md-6">
+                  <label for="validationCustom03" class="form-label">Town</label>
+                  <input type="text" class="form-control" id="validationCustom03" required name="city" value="<%= findaddress[i].city %> ">
+                  <div class="invalid-feedback">
+                    Please provide a valid city.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="validationCustom03" class="form-label">State</label>
+                  <input type="text" class="form-control" id="validationCustom03" required name="state" value="<%= findaddress[i].state %> ">
+                  <div class="invalid-feedback">
+                    Please provide a valid city.
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label for="validationCustom05" class="form-label">Pin</label>
+                  <input type="number" placeholder="<%= findaddress[i].pin %>" class="form-control" id="validationCustom05" required name="pin" value="<%= findaddress[i].pin %>">
+                  <div class="invalid-feedback">
+                    Please provide a valid zip.
+                  </div>
+                </div>
+                <button type="submit"  class="btn btn-primary">Save changes</button>
+             
+              </form>
+    <!----------------------------------------------------------------------------------> 
+            </div>
+            <div class="modal-footer"> 
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      
+   
+  <!--edit modal ending---------------------------------------------------------------------------->    
+  
+  
+         
+     <% } %>   
+           
+          <% } %> 
+          
+  
+     
+
+        
+       
+      </div>
+    </div>
+ 
+ 
+    
+<!--------------------------------------------------------------------------------->
+
+    <div class="modal fade" id="hi" tabindex="-1" aria-labelledby="aria-labelledby" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="model-title">Add Address</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+ <!---------------------------------------------------------------------------->
+            <form class="row g-3 needs-validation" novalidate action="/addaddres" method="post">
+              <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" id="validationCustom01" value="" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">Phone</label>
+                <input type="tel" class="form-control" name="phone" id="validationCustom01" value="" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+             
+              <div class="col-md-12">
+               <p class="mb-0">Address</p>
+            </div>
+            <div class="col-sm-9">
+               <textarea name="address" id="" cols="30" rows="5"></textarea>
+            </div>
+           
+              <div class="col-md-6">
+                <label for="validationCustom03" class="form-label">Town</label>
+                <input type="text" class="form-control" id="validationCustom03" required name="city">
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="validationCustom03" class="form-label">State</label>
+                <input type="text" class="form-control" id="validationCustom03" required name="state">
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="validationCustom05" class="form-label">Pin</label>
+                <input type="number" class="form-control" id="validationCustom05" required name="pin">
+                <div class="invalid-feedback">
+                  Please provide a valid zip.
+                </div>
+              </div>
+              <button type="submit"  class="btn btn-primary">Save changes</button>
+           
+            </form>
+  <!----------------------------------------------------------------------------------> 
+          </div>
+          <div class="modal-footer"> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+    
+ <%- include('partials/footer.ejs') %> 
+ 
+  <script>
+     async function deleteaddress(id){
+
+      let address = await axios.delete(`/deleteaddress/${id}`)
+      alert('Are you sure ?')
+      location.reload()
+     }
+  </script>
+  

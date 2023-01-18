@@ -1,0 +1,422 @@
+<!------------------------------------------------------------------------------------------------------------------------------------------>
+
+
+
+<!--================Cart Area =================-->
+<% if(cartitems==null || cartitems.items.length==0){ %>
+    <%- include('partials/header.ejs') %>
+
+        <!-- <section style="margin-top: 150px;"></section>
+    
+        <div style=" height: 150px;">
+        <div>
+            <div >
+                <img src="https://ucraftmarket.com/images/general/emptycart.jpg" alt="">
+            </div>
+            <h3 style="text-align: center;">Your cart is empty</h3>
+            <p style="text-align: center;">
+            </p>
+            <a href="/" class="btn btn-warning" style="margin-left: 640px;">Shope now</a>
+        </div>
+        </div>
+    </section> -->
+        <div class=" col-12 "
+            style="height: 650px; position: relative; display: flex;flex-direction: column;align-items: center; justify-content: center;">
+
+
+            <img src="https://ucraftmarket.com/images/general/emptycart.jpg" alt="">
+            <h3 style="text-align: center;">Your cart is empty</h3>
+
+            <a href="/" class="btn btn-warning">Shope now</a>
+
+        </div>
+
+        <%- include('partials/footer.ejs') %>
+            <% } else{ %>
+
+                <%- include('partials/header.ejs') %>
+
+                    <body>
+
+                        <div class="col-lg-12" style="height: 100px;"></div>
+
+
+
+                        <section class="cart_area">
+                            <div class="container">
+                                <div class="cart_inner">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Product</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% for(cart of cartitems.items){ %>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="media">
+                                                                <div class="d-flex">
+                                                                    <img src="<%= cart.product.image[0] %> " alt="pics"
+                                                                        style="height: 100px; width: 100px;">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <p>
+                                                                        <%= cart.product.name %>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <h5>
+                                                                <%= cart.product.price %>
+                                                            </h5>
+                                                        </td>
+                                                        <td class="column-3 pr-5">
+                                                            <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                                                <div
+                                                                    class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                                    <i class="fs-16 zmdi zmdi-minus"></i>
+                                                                </div>
+
+
+
+                                                                <button style="visibility: visible;"
+                                                                    id="hello<%-cart.product._id-%>" type="button"
+                                                                    class="btn btn-warning"
+                                                                    onclick="changequantity('<%-cartitems._id-%>','<%-cart.product._id-%>','-1')">-</button>
+
+                                                                <input type="" id="<%= cart.product._id %>"
+                                                                    style="width: 30px;" value="<%= cart.quantity %>">
+                                                                <button type="button" class="btn btn-warning"
+                                                                    onclick="changequantity('<%-cartitems._id-%>','<%-cart.product._id-%>','1')">+</button>
+
+
+                                                                <div
+                                                                    class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                                    <i class="fs-16 zmdi zmdi-plus"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <h5 id="price<%= cart.product._id %>">
+                                                                <%= cart.totalprice %>
+                                                            </h5>
+                                                        </td>
+                                                        <td>
+                                                            <a href=""
+                                                                onclick="removefromcart('<%= cart.product._id %>' )"
+                                                                class="btn btn-warning">Remove</a>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="accordion" id="accordionExample">
+
+
+
+                                                                    <div id="collapseOne" class="collapse show"
+                                                                        aria-labelledby="headingOne"
+                                                                        data-parent="#accordionExample">
+                                                                        <!-- collaps---------------------------- -->
+                                                                        <p>
+                                                                            <a class="btn btn-primary"
+                                                                                data-toggle="collapse"
+                                                                                href="#collapseExample" role="button"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="collapseExample">
+                                                                                Coupons
+                                                                            </a>
+
+                                                                        </p>
+                                                                        <div class="collapse" id="collapseExample">
+                                                                            <div class="card card-body">
+                                                                                <% coupons.forEach((element)=>{ %>
+
+                                                                                    <div>
+                                                                                        <%= element.code %>
+                                                                                    </div>
+
+                                                                                    <% }) %>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- collaps end----------------------------- -->
+                                                                        <div class="card-body">
+
+                                                                        </div>
+
+                                                                    </div>
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <form id="couponform">
+                                                                <td>
+
+
+                                                                    <div class="alert alert-success" id="success"
+                                                                        role="alert" style="display: none;">
+                                                                        Success !
+                                                                    </div>
+
+
+
+
+                                                                    <div class="cupon_text d-flex align-items-center">
+                                                                        <input type="text" placeholder="Coupon Code"
+                                                                            id="couponcode" name="couponcode">
+                                                                        <input type="text" name="user"
+                                                                            value="<%= userId %>" hidden>
+                                                                    </div>
+                                                                    <div class="alert alert-danger" id="error"
+                                                                        role="alert" style="display: none;">
+                                                                        Please fill!
+                                                                    </div>
+
+                                                                </td>
+                                                                <td>
+                                                                    <input type="submit" class="btn btn-primary"
+                                                                        value="apply">
+                                                                </td>
+                                                            </form>
+                                                        </tr>
+
+
+                                                        <td>
+
+                                                        </td>
+                                                        <tr>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <td id="carttotal" style="display: none;">
+                                                                <h6>Total</h6>
+                                                            </td>
+                                                            <td id="cartamount" style="display: none;">
+
+                                                            </td>
+                                                            <td>
+                                                                <h5 id="cartAmount">
+                                                                    <%= %>
+                                                                </h5>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <td id="coupon" style="display: none;">
+                                                                <h6>Coupon Amount</h6>
+                                                            </td>
+                                                            <td id="Amount" style="display: none;">
+
+                                                            </td>
+                                                            <td>
+                                                                <h6 id="amount">
+                                                                    <%= %>
+                                                                </h6>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+                                                                <h5>Total</h5>
+                                                            </td>
+                                                            <td>
+                                                                <h5 id="total">
+                                                                    <%= cartitems.cartTotal%>
+                                                                </h5>
+
+                                                            </td>
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <td>
+                                                                <a class="gray_btn" href="/">Continue Shopping</a>
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+
+                                                                <button class="gray_btn"
+                                                                    onclick="proceedCheckout('<%= cartitems.owner %>')">Proceed</button>
+                                                            </td>
+                                                        </tr>
+
+                                        </table>
+
+
+                                        </tbody>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+
+
+
+
+                        <!--================End Cart Area =================-->
+                        <%- include('partials/footer.ejs') -%>
+
+                    </body>
+
+                    </html>
+
+
+                    <% }%>
+
+                        <script>
+                            async function removefromcart(id) {
+                                console.log('Axios function------------------------------');
+                                console.log(id);
+                                await axios.delete(`/removefromcart?productid=${id}`).then(() => {
+                                    console.log("ASHDFERUIAWVSFDYSHDVUFH,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
+                                    location.reload()
+
+                                })
+
+                            }
+                        </script>
+                        <script>
+                            async function changequantity(cartid, productid, count) {
+                                let qty = await document.getElementById(productid).value
+                                qty = parseInt(qty)
+
+
+
+
+
+
+                                axios.patch(`/qtychange?cartid=${cartid}&productid=${productid}&cartcount=${count}
+           `).then((changeqty) => {
+                                    if (changeqty.data.stock) {
+                                        const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 3000,
+                                            timerProgressBar: true,
+                                            didOpen: (toast) => {
+                                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                            }
+                                        })
+
+                                        Toast.fire({
+                                            icon: 'error',
+                                            title: 'Out Of Stock!!'
+                                        })
+                                        return
+                                    } else {
+                                        console.log(changeqty.data.qty + 'hiiyaaaaaaaaaaaaaa');
+                                        document.getElementById(productid).value = changeqty.data.qty
+                                        document.getElementById('total').innerHTML = changeqty.data.total
+                                        document.getElementById('price' + productid).innerHTML = changeqty.data.totalprice
+                                        if (changeqty.data.qty == 1) {
+                                            document.getElementById('hello' + productid).style.visibility = 'hidden';
+                                        } else {
+                                            document.getElementById('hello' + productid).style.visibility = 'visible';
+                                        }
+                                    }
+                                })
+                            }
+
+
+                            let clicked = false;
+                            $('#couponform').submit((e) => {
+                                e.preventDefault()
+                                console.log('keri-----------------');
+                                var code = document.getElementById('couponcode').value
+                                let carttotal = document.getElementById('total').innerHTML
+
+                                if (code == '') {
+                                    document.getElementById('error').style.display = 'inline'
+                                    setTimeout(() => document.getElementById('error').style.display = 'none', 2000)
+
+                                } else {
+                                    $.ajax({
+                                        url: '/couponcheckout',
+                                        method: 'post',
+                                        dataType: 'json',
+                                        encode: true,
+                                        data: $('#couponform').serialize() + `&carttotal=${carttotal}`,
+
+                                        success: ((response) => {
+                                            if (response.data) {
+                                                document.getElementById('error').innerHTML = 'Minimum cart amount needed'
+                                                document.getElementById('error').style.display = 'inline'
+                                                setTimeout(() => document.getElementById('error').style.display = 'none', 2000)
+
+                                            }
+                                            else if (response.status && clicked == false) {
+                                                document.getElementById('success').style.display = 'inline'
+                                                setTimeout(() => document.getElementById('success').style.display = 'none', 2000)
+                                                // document.getElementById('total').innerHTML = response.redeemedTotal
+                                                document.getElementById('coupon').style.display = 'inline'
+                                                document.getElementById('Amount').style.display = 'inline'
+                                                document.getElementById('amount').innerHTML = response.redeem
+                                                document.getElementById('carttotal').style.display = 'inline'
+                                                document.getElementById('cartamount').style.display = 'inline'
+                                                document.getElementById('cartAmount').innerHTML = response.total
+                                                document.getElementById('total').innerHTML = response.redeemedTotal
+                                                clicked = true
+                                            } else {
+                                                document.getElementById('error').innerHTML = 'Already Applied'
+                                                document.getElementById('error').style.display = 'inline'
+                                                setTimeout(() => document.getElementById('error').style.display = 'none', 2000)
+
+                                            }
+                                        })
+                                    })
+                                }
+
+                            })
+
+                            function proceedCheckout(id) {
+                                const code = document.getElementById('couponcode').value
+                                const total = document.getElementById('total').innerHTML
+                                console.log('==========================================');
+                                console.log(total)
+                                location.href = `/checkout?user=${id}&code=${code}&total=${total}`
+
+                            }
+                        </script>

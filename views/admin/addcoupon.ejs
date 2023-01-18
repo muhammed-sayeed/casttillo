@@ -1,0 +1,58 @@
+
+<%- include('partials/navbar.ejs') -%>
+<%- include('partials/sidebar.ejs') -%>
+<form action="/admin/postaddcoupon" method="post">
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-xl-2"></div>
+<div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Add Coupon</h6>
+        <div class="form-floating mb-3">
+            <input type="String" class="form-control" id="floatingInput"
+                placeholder="" name="code">
+             <label for="floatingInput">Code</label> 
+        </div>
+        <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="floatingInput"
+                placeholder="" name="available">
+             <label for="floatingInput">Availability</label> 
+        </div>
+        <div class="form-floating mb-3">
+            <input type="String" class="form-control" id="floatingInput"
+                placeholder="" name="status">
+             <label for="floatingInput"> Status</label> 
+        </div>
+        <!-- <div class="form-floating mb-3">
+            <input type="" class="form-control" id="floatingInput"
+                placeholder="" name="percentage">
+             <label for="floatingInput"> Percentage</label> 
+        </div> -->
+        <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="floatingInput"
+                placeholder="" name="amount">
+             <label for="floatingInput">Amount</label> 
+        </div>
+        <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="floatingInput"
+                placeholder="" name="maxdiscountAmount">
+             <label for="floatingInput">Discount Amount</label> 
+        </div>
+        <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="floatingInput"
+                placeholder="" name="mincartAmout">
+             <label for="floatingInput">Cart Amount</label> 
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="floatingInput"
+                placeholder="" name="expiredAfter">
+             <label for="floatingInput">Exp date</label> 
+        </div>
+      
+      
+       
+        <div><button type="submit" style="margin-top: 20px;" class="btn btn-success">Add Coupon</button></div>
+    </div>
+</div>
+</form>
