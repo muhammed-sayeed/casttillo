@@ -50,6 +50,8 @@ const adminHome = async(req, res) => {
 }
 ])
 
+console.log(revenue,'ertyuiuytrtytrtytrt');
+
 const Allsales = await orderdb.aggregate([{ $match: { orderstatus: { $ne: 'cancelled'}}},{
 $group:{
   _id: {
@@ -137,8 +139,9 @@ const unblock = async (req, res) => {
 
 const catPage = async (req, res) => {
   const categorylist = await category.find();
+  console.log(categorylist);
   
-  res.render("admin/catPage", { categorylist });
+  res.render("admin/catpage", { categorylist });
 };
 
 const addCategory = (req, res) => {

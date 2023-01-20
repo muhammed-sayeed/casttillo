@@ -57,6 +57,7 @@ const viewMore = async (req, res,next) => {
   try{
     const id = req.params.id;
     const count = req.count;
+    const uSer = req.User;
     const details = await product.findById(id).populate("category");
     if(!details){
       return next( new AppError('No Details found in this id',404))
