@@ -26,11 +26,11 @@ const envirolment =
     ? paypal.core.LiveEnvironment
     : paypal.core.SandboxEnvironment;
 
-// const paypalCliend = new paypal.core.PayPalHttpClient(
-//   new envirolment(process.env.PAYPAL_CLIND_ID, process.env.SECRET_KEY)
-// );
-const paypalCliend = process.env.PAYPAL_CLIND_ID
-const SECRET_KEY = process.env.SECRET_KEY
+const paypalCliend = new paypal.core.PayPalHttpClient(
+  new envirolment(process.env.PAYPAL_CLIND_ID, process.env.SECRET_KEY)
+);
+// const paypalCliend = process.env.PAYPAL_CLIND_ID
+// const SECRET_KEY = process.env.SECRET_KEY
 
 
 const homeView = async (req, res,next) => {
