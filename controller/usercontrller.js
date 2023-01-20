@@ -65,7 +65,7 @@ const viewMore = async (req, res,next) => {
       return next( new AppError('No Details found in this id',404))
     }
   
-    res.render("user/productdetails", { details, count });
+    res.render("user/productdetails", { details, count,uSer });
   }catch(e){
     next (new Error(e))
      }
