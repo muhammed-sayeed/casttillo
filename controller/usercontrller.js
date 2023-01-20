@@ -26,9 +26,11 @@ const envirolment =
     ? paypal.core.LiveEnvironment
     : paypal.core.SandboxEnvironment;
 
-const paypalCliend = new paypal.core.PayPalHttpClient(
-  new envirolment(process.env.PAYPAL_CLIND_ID, process.env.SECRET_KEY)
-);
+// const paypalCliend = new paypal.core.PayPalHttpClient(
+//   new envirolment(process.env.PAYPAL_CLIND_ID, process.env.SECRET_KEY)
+// );
+const paypalCliend = process.env.PAYPAL_CLIND_ID
+const SECRET_KEY = process.env.SECRET_KEY
 
 
 const homeView = async (req, res,next) => {
@@ -731,7 +733,7 @@ const postCheck = async (req, res) => {
 };
 
 const creatorder= async(req,res)=>{
- 
+ console.log('paypal=============================');
   const request = new paypal.orders.OrdersCreateRequest();
 
  
@@ -741,7 +743,7 @@ const creatorder= async(req,res)=>{
   request.prefer("return=representation");
   request.requestBody({
     intent: "CAPTURE",
-    purchase_units: [
+     purchase_units: [
       {
         amount: {
           currency_code: "USD",
@@ -758,9 +760,9 @@ const creatorder= async(req,res)=>{
     ],
   });
   try {
-    
+    console.log('pay --------------------------------------');
     const order = await paypalCliend.execute(request);
-   
+   console.log(order,'sdfgtrrrrrrrrrrrrrrrrrrrrr');
     res.json({ id: order.result.id });
   } catch (e) {
    
@@ -978,6 +980,37 @@ const orderPrint = async (req, res) => {
 const errorPage = (req, res) => {
   res.render("user/404");
 };
+
+const removefromwish = async (req, res,next) => {
+ 
+  try{
+    let userdata = req.session.login;
+ 
+  const proid = req.query.productid;
+  console.log(proid,'sssssssssssdddddddddsssd');
+
+  let products = await product.findOne({ _id: proid });
+  let wishlist = await whishlist.findOne({ owner: userdata._id });
+
+  
+  
+  
+ 
+  let deletingproduct = await whishlist.findOneAndUpdate(
+    { owner: userdata._id },
+    {
+      $pull: {
+        products: { product: proid },
+      },
+     
+    }
+  );
+ 
+  res.json("succeed")
+}catch(e){
+  next (new Error(e))
+}
+};
 module.exports = {
   homeView,
   loginView,
@@ -1019,5 +1052,6 @@ module.exports = {
   
   creatorder,
   successPage,
-  varifypeyment
+  varifypeyment,
+  removefromwish
 };

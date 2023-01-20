@@ -42,7 +42,8 @@ const {
    
     creatorder,
     successPage,
-    varifypeyment
+    varifypeyment,
+    removefromwish
 
    
 } = require('../controller/usercontrller')
@@ -103,6 +104,7 @@ router.get('/errorpage',errorPage)
 router.post('/create-order',creatorder)
 router.get('/successpage',successPage)
 router.post('/verifyPayment',varifypeyment)
+router.delete('/removefromwish',removefromwish)
 
 
 

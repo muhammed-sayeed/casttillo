@@ -34,7 +34,7 @@
                           <!-- collaps--------------------------------------------------------------- -->
                           <p>
                             <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
-                              aria-expanded="false" aria-controls="collapseExample">
+                              aria-expanded="false" aria-controls="collapseExample" style="    margin-left: -32px;">
                               Addresses
                             </a>
                             <button class="btn btn-outline-primary ms-1" data-bs-toggle="modal"
@@ -44,10 +44,10 @@
                           <div class="collapse" id="collapseExample">
                             <div class="card card-body">
                               <% for(let i=0;i<addresses[0].address.length;i++){ %>
-                                <div class="col-lg-6 border">
+                                <div class="col-lg-12 border" style="margin-top: 10px; width: 500px;">
 
                                   <input type="radio" required name="address" id="address"
-                                    value="<%= addresses[0].address[i]._id %>">
+                                    value="<%= addresses[0].address[i]._id %>" style="margin-top: 10px;">
                                   <h4>
                                     <%= addresses[0].address[i].name %>
                                   </h4>
@@ -55,8 +55,10 @@
                                     <%= addresses[0].address[i].address %>
                                       <%= addresses[0].address[i].city %>
                                         <%= addresses[0].address[i].state %>
-                                          <%= addresses[0].address[i].phone %>
+                                        <br>
+                                        <%= addresses[0].address[i].phone %>
                                   </p>
+                                  
 
 
 
@@ -136,7 +138,7 @@
                           <% if(addresses==0){ %>
                             <input class="primary-btn" value="Proceed" type="submit" hidden>
                             <% }else{ %>
-                              <input class="primary-btn" value="Proceed" onclick="payment()" >
+                              <input class="primary-btn" value="Proceed" onclick="payment()" style="margin-bottom: 10px;" >
                               <% } %>
                         </div>
                         <div id="paypal-button-container"></div>

@@ -190,9 +190,7 @@
                                                         </tr>
 
 
-                                                        <td>
-
-                                                        </td>
+                                                      
                                                         <tr>
                                                             <td>
 
@@ -204,15 +202,11 @@
 
                                                             </td>
                                                             <td id="carttotal" style="display: none;">
-                                                                <h6>Total</h6>
+                                                                Total
                                                             </td>
-                                                            <td id="cartamount" style="display: none;">
-
-                                                            </td>
-                                                            <td>
-                                                                <h5 id="cartAmount">
-                                                                    <%= %>
-                                                                </h5>
+                                                            
+                                                            <td id="cartAmount">
+                                                               
 
                                                             </td>
                                                         </tr>
@@ -227,15 +221,11 @@
 
                                                             </td>
                                                             <td id="coupon" style="display: none;">
-                                                                <h6>Coupon Amount</h6>
+                                                                Coupon Amount
                                                             </td>
-                                                            <td id="Amount" style="display: none;">
-
-                                                            </td>
-                                                            <td>
-                                                                <h6 id="amount">
-                                                                    <%= %>
-                                                                </h6>
+                                                           
+                                                            <td id="amount">
+                                                               
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -249,7 +239,7 @@
 
                                                             </td>
                                                             <td>
-                                                                <h5>Total</h5>
+                                                                Total
                                                             </td>
                                                             <td>
                                                                 <h5 id="total">
@@ -391,12 +381,12 @@
                                                 document.getElementById('success').style.display = 'inline'
                                                 setTimeout(() => document.getElementById('success').style.display = 'none', 2000)
                                                 // document.getElementById('total').innerHTML = response.redeemedTotal
-                                                document.getElementById('coupon').style.display = 'inline'
-                                                document.getElementById('Amount').style.display = 'inline'
-                                                document.getElementById('amount').innerHTML = response.redeem
-                                                document.getElementById('carttotal').style.display = 'inline'
-                                                document.getElementById('cartamount').style.display = 'inline'
+                                                document.getElementById('coupon').style.display = 'block'
+                                                document.getElementById('carttotal').style.display = 'block'
                                                 document.getElementById('cartAmount').innerHTML = response.total
+                                                document.getElementById('amount').innerHTML = response.redeem
+                                              
+                                              
                                                 document.getElementById('total').innerHTML = response.redeemedTotal
                                                 clicked = true
                                             } else {

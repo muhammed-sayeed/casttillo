@@ -81,6 +81,9 @@
                                                   <td>
 
                                                   </td>
+                                                  <td>
+                                                    <i class="fa-sharp fa-solid fa-trash" onclick="removefromwish('<%= el.product._id %>')"></i>
+                                                  </td>
                                               
                                                 <td>
                                                     <a  onclick="addtoCart('<%=el.product._id %>')"
@@ -158,6 +161,34 @@
       
 
 	}
+
+    async function removefromwish(id) {
+                                console.log('Axios function------------------------------');
+                                console.log(id);
+                                await axios.delete(`/removefromwish?productid=${id}`).then(() => {
+                                    console.log("ASHDFERUIAWVSFDYSHDVUFH,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
+
+                                    const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 4000,
+                                            timerProgressBar: true,
+                                            didOpen: (toast) => {
+                                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                            }
+                                        })
+
+                                        Toast.fire({
+                                            icon: 'error',
+                                            title: 'Deleted!!'
+                                        })
+                        location.reload()
+
+                                })
+
+                            }
         </script>
 
      
