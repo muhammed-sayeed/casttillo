@@ -734,10 +734,12 @@ const postCheck = async (req, res) => {
 
 const creatorder= async(req,res)=>{
  console.log('paypal=============================');
+ console.log(paypalCliend);
   const request = new paypal.orders.OrdersCreateRequest();
 
  
   const balance = req.body.items[0].amount;
+  console.log(balance);
 
  
   request.prefer("return=representation");
@@ -747,7 +749,7 @@ const creatorder= async(req,res)=>{
       {
         amount: {
           currency_code: "USD",
-          value: balance,
+          value: balance, 
 
           breakdown: {
             item_total: {
@@ -760,19 +762,22 @@ const creatorder= async(req,res)=>{
     ],
   });
   try {
+   
     console.log('pay --------------------------------------');
+    
     const order = await paypalCliend.execute(request);
+
    console.log(order,'sdfgtrrrrrrrrrrrrrrrrrrrrr');
     res.json({ id: order.result.id });
   } catch (e) {
-   
+   console.log(e);
     res.status(500).json(e);
   }
 };
 
 const varifypeyment= async (req,res)=>{
 
-userId = req.session.login._id
+userId = req.session.login._id 
 const ordercart = await cart.findOne({owner:userId})
 ordercart.items = [];
 ordercart.cartTotal = 0;
