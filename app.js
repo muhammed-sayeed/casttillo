@@ -81,7 +81,7 @@ app.use((req,res,next)=>{
 const id = req.session.login._id
 
  cart.findOne({owner:id}).then((data)=>{
-         const length = data.items.length
+         const length = data?.items?.length
          req.count=length
          req.User = true
          next()

@@ -249,7 +249,7 @@ const postOtp = async (req, res,next) => {
 
       const user = new Userdb({
         name: name,
-        phone: phone,
+        phone: phone, 
         email: email,
         password: hashpassword,
         conform: hashedconfirmpassword,
